@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_with_api/bloc/product_bloc.dart';
 import 'package:flutter_bloc_with_api/pages/list_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -20,13 +22,12 @@ class _SearchPageState extends State<SearchPage> {
           TextButton(
             child: const Text('Search'),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/list',
-                arguments: ListPageArgs(textController.text),
+              BlocProvider.of<ProductBloc>(context).add(
+                SearchEvent(textController.text),
               );
+              Navigator.pushNamed(context, '/list');
             },
-          ),
+          )
         ],
       ),
     );
