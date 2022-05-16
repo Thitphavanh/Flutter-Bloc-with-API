@@ -33,6 +33,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           emit(ProductFinishState(drinks));
         } catch (e) {
           emit(ProductError(e.toString()));
+          return;
         }
       },
     );
