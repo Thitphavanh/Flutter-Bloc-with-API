@@ -12,7 +12,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<SearchEvent>(
       (event, emit) async {
         emit(ProductLoading());
-
         try {
           //
           var url = Uri.https('www.thecocktaildb.com',

@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 class ProductDBProvider {
   Future<List<Drink>> searchData(String searchText) async {
     try {
-      //
       var url = Uri.https(
         'www.thecocktaildb.com',
         '/api/json/v1/1/search.php',
