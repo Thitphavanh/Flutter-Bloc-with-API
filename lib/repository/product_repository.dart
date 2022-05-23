@@ -1,8 +1,10 @@
-import 'package:flutter_bloc_with_api/bloc/product_db_provider.dart';
+import 'package:flutter_bloc_with_api/repository/mock_provider.dart';
 import 'package:flutter_bloc_with_api/cocktail_db/drink.dart';
+import 'package:flutter_bloc_with_api/repository/provider.dart';
+import 'product_db_provider copy.dart';
 
 class ProductRepository {
-  final ProductDBProvider provider;
+  final Provider provider;
   List<Drink> rawData = [];
 
   ProductRepository(this.provider);

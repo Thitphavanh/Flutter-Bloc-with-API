@@ -4,7 +4,7 @@ import 'package:flutter_bloc_with_api/cocktail_db/drink.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import '../cocktail_db/cocktail_db.dart';
-import 'product_repository.dart';
+import '../repository/product_repository.dart';
 part 'product_event.dart';
 part 'product_state.dart';
 

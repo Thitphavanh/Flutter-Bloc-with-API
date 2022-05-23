@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc_with_api/cocktail_db/cocktail_db.dart';
 import 'package:flutter_bloc_with_api/cocktail_db/drink.dart';
+import 'package:flutter_bloc_with_api/repository/provider.dart';
 import 'package:http/http.dart' as http;
 
-class ProductDBProvider {
+class ProductDBProvider extends Provider {
+  @override
   Future<List<Drink>> searchData(String searchText) async {
     try {
       var url = Uri.https(
