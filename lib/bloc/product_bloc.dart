@@ -11,17 +11,27 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
   ProductBloc(this.repository) : super(ProductInitial()) {
-    on<SearchEvent>(
-      (event, emit) async {
-        emit(ProductLoading());
-        try {
-          var drinks = await repository.searchData(event.searchText);
-          emit(ProductFinishState(drinks));
-        } catch (e) {
-          emit(ProductError(e.toString()));
-          return;
-        }
-      },
-    );
+    on<SearchEvent>((event, emit) async {
+      emit(
+        ProductLoading(),
+      );
+      try {
+        var drinks = await repository.searchData(event.searchText);
+        emit(
+          ProductFinishState(drinks),
+        );
+      } catch (e) {
+        emit(
+          ProductError(
+            e.toString(),
+          ),
+        );
+        return;
+      }
+    });
+    on<FilterEvent>((event, emit) {
+      var drinks = repository.filter(event.searchText);
+      emit(ProductFinishState(drinks));
+    });
   }
 }

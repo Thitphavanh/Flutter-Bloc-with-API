@@ -2,7 +2,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_with_api/cocktail_db/drink.dart';
 import 'package:flutter_bloc_with_api/pages/detail_page.dart';
+
 import '../bloc/product_bloc.dart';
 
 class ListPage extends StatefulWidget {
@@ -35,6 +37,9 @@ class _ListPageState extends State<ListPage> {
           if (state is ProductFinishState) {
             return Scaffold(
               appBar: AppBar(
+                actions: [
+                  DropDownFilter(drinks: state.drinks),
+                ],
                 elevation: 0,
                 foregroundColor: Colors.black,
                 backgroundColor: Colors.white,
@@ -90,4 +95,46 @@ Future<void> _showMyDialog(BuildContext context, String message) async {
       );
     },
   );
+}
+
+class DropDownFilter extends StatefulWidget {
+  final List<Drink> drinks;
+
+  const DropDownFilter({Key? key, required this.drinks}) : super(key: key);
+
+  @override
+  State<DropDownFilter> createState() => _DropDownFilterState();
+}
+
+class _DropDownFilterState extends State<DropDownFilter> {
+  late List<String?> categorys = [null];
+  String? isSelectedFilter;
+
+  @override
+  void initState() {
+    super.initState();
+    categorys.addAll(
+      widget.drinks.map((e) => e.strCategory).toSet().toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String?>(
+        value: isSelectedFilter,
+        items: categorys
+            .map(
+              (e) => DropdownMenuItem(
+                value: e,
+                child: Text(e ?? 'All'),
+              ),
+            )
+            .toList(),
+        onChanged: (selected) {
+          BlocProvider.of<ProductBloc>(context).add(FilterEvent(selected));
+          setState(() {
+            isSelectedFilter = selected;
+          });
+        });
+  }
 }

@@ -8,3 +8,9 @@ class SearchEvent extends ProductEvent {
 
   SearchEvent(this.searchText);
 }
+
+class FilterEvent extends ProductEvent {
+  final String? searchText;
+
+  FilterEvent(this.searchText);
+}
