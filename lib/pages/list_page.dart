@@ -121,20 +121,23 @@ class _DropDownFilterState extends State<DropDownFilter> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String?>(
-        value: isSelectedFilter,
-        items: categorys
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Text(e ?? 'All'),
-              ),
-            )
-            .toList(),
-        onChanged: (selected) {
-          BlocProvider.of<ProductBloc>(context).add(FilterEvent(selected));
-          setState(() {
+      value: isSelectedFilter,
+      items: categorys
+          .map(
+            (e) => DropdownMenuItem(
+              value: e,
+              child: Text(e ?? 'All'),
+            ),
+          )
+          .toList(),
+      onChanged: (selected) {
+        BlocProvider.of<ProductBloc>(context).add(FilterEvent(selected));
+        setState(
+          () {
             isSelectedFilter = selected;
-          });
-        });
+          },
+        );
+      },
+    );
   }
 }
